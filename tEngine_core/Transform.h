@@ -3,6 +3,7 @@
 #include "CoreHeader.h"
 #include "Component.h"
 #include "Vector2.h"
+#include "Vector3.h"
 
 NAMESPACE_OPEN(tEngine)
 
@@ -20,10 +21,11 @@ public:
 	void Render(HDC hdc)  override;
 
 	void SetPosition(const Vector2& pos) { _position.x = pos.x; _position.y = pos.y; }
-	Vector2 Position() const { return _position; }
+	void SetPosition(const Vector3& pos) { _position.x = pos.x; _position.y = pos.y; _position.z = pos.z; }
+	Vector3 position() const { return _position; }
 
 private:
-	Vector2 _position;
+	Vector3 _position;
 };
 
 NAMESPACE_CLOSE

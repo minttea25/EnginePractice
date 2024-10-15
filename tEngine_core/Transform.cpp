@@ -13,6 +13,7 @@ Transform::~Transform()
 }
 void Transform::Init()
 {
+	// leave empty
 }
 void Transform::Update()
 {

@@ -74,7 +74,7 @@ SceneManager::SCENE_INDEX SceneManager::_create_scene(Scene*& scene, const Strin
 	SCENE_INDEX index = s_sceneIndex++;
 
 	scene->SetSceneName(name);
-	if (setActiveScene) s_activeScene = scene;
+	if (setActiveScene || s_activeScene == nullptr) s_activeScene = scene;
 	scene->Init();
 
 	s_names.insert(std::make_pair(name, index));

@@ -35,7 +35,7 @@ void Player::LateUpdate()
 		return;
 	}
 
-	Vector2 pos = transform->Position();
+	Vector3 pos = transform->position();
 	auto dist = _speed * Time::deltaTime();
 
 	if (Input::GetKey(KeyCode::W))
@@ -60,6 +60,6 @@ void Player::LateUpdate()
 
 void Player::Render(HDC hdc)
 {
-	auto v = transform()->Position();
+	auto v = transform()->position();
 	Rectangle(hdc, v.x, v.y, 100.0f + v.x, 100.0f + v.y);
 }

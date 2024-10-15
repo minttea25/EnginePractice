@@ -2,7 +2,7 @@
 
 #include "CoreHeader.h"
 
-NAMESPACE_OPEN(GEngine::Types)
+NAMESPACE_OPEN(tEngine::Types)
 
 struct T_ENGINE_CORE_API Vector3
 {
@@ -11,6 +11,10 @@ public:
 	static constexpr float kEpsilonNormalSqrt = 1E-15f;
 public:
 	Vector3() : x(0), y(0), z(0) {}
+	Vector3(const float _x, const float _y)
+		: x(_x), y(_y), z(0)
+	{
+	}
 	Vector3(const float _x, const float _y, const float _z)
 		: x(_x), y(_y), z(_z)
 	{

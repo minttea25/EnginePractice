@@ -3,6 +3,7 @@
 #include "../tEngine_core/SceneManager.h"
 #include "../tEngine_core/Scene.h"
 #include "../tEngine_window/Player.h"
+#include "../tEngine_window/BgObject.h"
 
 using namespace tEngine;
 

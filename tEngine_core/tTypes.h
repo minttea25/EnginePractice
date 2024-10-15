@@ -31,10 +31,19 @@ namespace tEngine
 	template<typename T0, typename T1>
 	using Delegate2 = std::function<void(T0, T1)>;
 
-
+	class Object;
+	class Transform;
 	class GameObject;
 	class Component;
 	class Scene;
+	
+
+	template<class T>
+	concept _GAMEOBJECT = requires(T go)
+	{
+		requires std::derived_from<T, Object>;
+		{ go.transform() } -> std::same_as<Transform*>;
+	};
 
 	template<class T>
 	concept _COMPONENT = requires(T component, GameObject* go)

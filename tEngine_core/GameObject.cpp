@@ -7,6 +7,7 @@ NAMESPACE_OPEN(tEngine)
 GameObject::GameObject()
 	:_transform(nullptr)
 {
+	_init_transform();
 }
 
 GameObject::~GameObject()
@@ -22,7 +23,6 @@ GameObject::~GameObject()
 
 void GameObject::Init()
 {
-	_init_transform();
 	for (auto& kv : _components)
 	{
 		kv.second->Init();

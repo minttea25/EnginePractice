@@ -27,12 +27,22 @@ public:
 
 	template <_COMPONENT Com>
 	void AddComponent();
+
+	// TODO : tempalte specification
+	/*template<>
+	void AddComponent<Transform>();*/
 	
 	template <_COMPONENT Com>
 	Com* GetComponent();
 
+	/*template<>
+	Transform* GetComponent() { return _transform; }*/
+
 	template <_COMPONENT Com>
 	bool TryGetComponent(OUT Com*& component);
+
+	/*template<>
+	bool TryGetComponent(OUT Transform*& component) { component = _transform; return true; }*/
 	
 private:
 	void internal_Update();
