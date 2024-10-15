@@ -3,7 +3,7 @@
 #include "CoreHeader.h"
 #include "Renderer.h"
 #include "Component.h"
-
+#include "TextureResource.h"
 
 NAMESPACE_OPEN(tEngine)
 
@@ -20,15 +20,14 @@ public:
 	T_ENGINE_CORE_API void LateUpdate() override;
 	T_ENGINE_CORE_API void Render(HDC hdc) override;
 
-	T_ENGINE_CORE_API void LoadImage_Gdiplus(const String& path);
+	// TODO : think about shared_pointer.
+	// Is textureResource controlled outside of this class?
+	// What if the set_texture_resource called although _textureResource is already existing?
 
-	T_ENGINE_CORE_API unsigned int width() const { return _width; }
-	T_ENGINE_CORE_API unsigned int height() const { return _height; }
-
+	T_ENGINE_CORE_API void set_texture_resource(graphics::TextureResource* textureResource) { _textureResource = textureResource; }
+	T_ENGINE_CORE_API graphics::TextureResource* texture_resource() { return _textureResource; }
 private:
-	Gdiplus::Image* _image;
-	unsigned int _width;
-	unsigned int _height;
+	graphics::TextureResource* _textureResource;
 };
 
 NAMESPACE_CLOSE

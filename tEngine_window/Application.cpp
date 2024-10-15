@@ -5,6 +5,7 @@
 #include "../tEngine_core/tTime.h"
 #include "../tEngine_core/tInput.h"
 #include "../tEngine_core/SceneManager.h"
+#include "../tEngine_core/Resources.h"
 
 NAMESPACE_OPEN(tEngine);
 Application::Application()
@@ -48,6 +49,7 @@ void Application::Init(HWND hwnd, unsigned int width, unsigned int height)
 
     Time::Init();
     Input::Init();
+    Resources::Init();
     SceneManager::Init();
 }
 

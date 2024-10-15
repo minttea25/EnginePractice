@@ -13,4 +13,15 @@ enum class eLayerType
 	Max = 16,
 };
 
+enum class eResourceType
+{
+	None,
+	Texture,
+	Audio,
+	Prefab,
+	Shader,
+	Material,
+
+};
+
 NAMESPACE_CLOSE

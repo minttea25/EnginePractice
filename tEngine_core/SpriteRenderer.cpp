@@ -6,13 +6,12 @@
 NAMESPACE_OPEN(tEngine)
 
 SpriteRenderer::SpriteRenderer(GameObject* gameObject)
-	: Renderer(gameObject), _width(0), _height(0), _image(nullptr)
+	: Renderer(gameObject), _textureResource(nullptr)
 {
 }
 
 SpriteRenderer::~SpriteRenderer()
 {
-	if (_image != nullptr) delete _image;
 }
 
 void SpriteRenderer::Init()
@@ -29,18 +28,19 @@ void SpriteRenderer::LateUpdate()
 
 void SpriteRenderer::Render(HDC hdc)
 {
+	if (_textureResource == nullptr) return;
+
+	auto image = _textureResource->image();
+	if (image == nullptr) return;
+
 	Transform* tr = gameObject()->GetComponent<Transform>();
 	auto pos = tr->position();
 
 	Gdiplus::Graphics graphcis(hdc);
-	graphcis.DrawImage(_image, Gdiplus::Rect(pos.x, pos.y, _width, _height));
+	
+	graphcis.DrawImage(image, 
+		Gdiplus::Rect(pos.x, pos.y, (int)_textureResource->width(), (int)_textureResource->height()));
 }
 
-void SpriteRenderer::LoadImage_Gdiplus(const String& path)
-{
-	_image = Gdiplus::Image::FromFile(path.c_str());
-	_width = _image->GetWidth();
-	_height = _image->GetHeight();
-}
 
 NAMESPACE_CLOSE

@@ -17,6 +17,8 @@ public:
 
 	void ShowFps(HDC hdc);
 
+	HDC hdc() { return _hdc; }
+
 private:
 	void clearRenterTarget();
 	void copyRenderTarget(HDC sourceHdc, HDC dest);

@@ -172,9 +172,13 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="Resources.h" />
+    <ClInclude Include="ResourceUtil.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="TextureResource.h" />
     <ClInclude Include="tInput.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="tTime.h" />
@@ -196,9 +200,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="TextureResource.cpp" />
     <ClCompile Include="tInput.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="tTime.cpp" />

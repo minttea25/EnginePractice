@@ -36,6 +36,7 @@ namespace tEngine
 	class GameObject;
 	class Component;
 	class Scene;
+	class Resource;
 	
 
 	template<class T>
@@ -59,6 +60,14 @@ namespace tEngine
 	concept _SCENE = requires()
 	{
 		requires std::derived_from<T, Scene>;
+	};
+
+	template<class T>
+	concept _RESOURCE = requires(T rsc, std::wstring& file)
+	{
+		requires std::derived_from<T, Resource>;
+		T(file); // Check.
+		{ rsc.Load() } -> std::same_as<HRESULT>;
 	};
 
 	template<typename T>
