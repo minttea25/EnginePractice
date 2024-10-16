@@ -4,6 +4,7 @@
 #include "../tEngine_core/SpriteRenderer.h"
 #include "../tEngine_core/Resources.h"
 #include "../tEngine_core/TextureResource.h"
+#include "Player.h"
 
 void PlayScene::Init()
 {
@@ -14,10 +15,12 @@ void PlayScene::Init()
 			return;
 		}
 
-		auto bg = Object::Instantiate<BgObject>(enums::eLayerType::BackGround, Types::Vector3(30, 30));
+		auto bg = Object::Instantiate<GameObject>(enums::eLayerType::BackGround, Types::Vector3(30, 30));
 		bg->AddComponent<SpriteRenderer>();
 		bg->GetComponent<SpriteRenderer>()->set_texture_resource(texture);
-		auto player = Object::Instantiate<Player>(enums::eLayerType::Player, Types::Vector3(100, 100, 0));
+		
+		auto player = Object::Instantiate<GameObject>(enums::eLayerType::Player, Types::Vector3(100, 100, 0));
+		player->AddComponent<Player>();
 	}
 }
 

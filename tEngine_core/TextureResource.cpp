@@ -8,7 +8,7 @@ NAMESPACE_OPEN(tEngine::graphics)
 
 TextureResource::TextureResource(const String& path)
     : Resource(enums::eResourceType::Texture), _type(eTextureType::None),
-    _width(0), _height(0), _image(nullptr), _hdc(nullptr)
+    _width(0), _height(0), _image(nullptr)
 {
     Resource::set_path(path);
 }

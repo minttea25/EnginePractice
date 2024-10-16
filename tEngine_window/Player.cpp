@@ -4,9 +4,10 @@
 #include "../tEngine_core/tInput.h"
 #include "../tEngine_core/tTime.h"
 #include "../tEngine_core/Transform.h"
+#include "../tEngine_core/GameObject.h"
 
-Player::Player()
-	: GameObject(), _speed(100)
+Player::Player(GameObject* go)
+	: MonoBehaviour(go), _speed(100)
 {
 }
 
@@ -16,7 +17,6 @@ Player::~Player()
 
 void Player::Init()
 {
-	GameObject::Init();
 }
 
 void Player::Update()
@@ -29,7 +29,7 @@ void Player::LateUpdate()
 	using namespace tEngine::Types;
 
 	Transform* transform = nullptr;
-	if (TryGetComponent(transform) == false)
+	if (gameObject()->TryGetComponent(transform) == false)
 	{
 		// error
 		return;
@@ -60,6 +60,6 @@ void Player::LateUpdate()
 
 void Player::Render(HDC hdc)
 {
-	auto v = transform()->position();
+	auto v = gameObject()->transform()->position();
 	Rectangle(hdc, v.x, v.y, 100.0f + v.x, 100.0f + v.y);
 }

@@ -10,8 +10,8 @@ using namespace tEngine;
 class PlayScene : public Scene
 {
 public:
-	PlayScene() : Scene(), _player(nullptr) {}
-	~PlayScene() { if (_player != nullptr) delete _player; }
+	PlayScene() : Scene() {}
+	~PlayScene() {  }
 
 	void Init() override;
 	void Update() override;
@@ -28,7 +28,6 @@ public:
 	}
 
 private:
-	Player* _player;
 };
 
 static void LoadScenes()

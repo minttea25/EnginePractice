@@ -71,8 +71,10 @@ void GameObject::internal_Render(HDC hdc)
 
 void GameObject::_init_transform()
 {
-	AddComponent<Transform>();
-	_transform = GetComponent<Transform>();
+	_transform = new Transform(this);
+	_transform->Init();
+	//AddComponent<Transform>();
+	//_transform = GetComponent<Transform>();
 }
 
 NAMESPACE_CLOSE

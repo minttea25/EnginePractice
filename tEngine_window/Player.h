@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../tEngine_core/GameObject.h"
+#include "../tEngine_core/MonoBehaviour.h"
 
 using namespace tEngine;
 
-class Player : public GameObject
+class Player : public MonoBehaviour
 {
 public:
-	Player();
+	Player(GameObject* go);
 	~Player();
 
 	void Init() override;

@@ -28,6 +28,7 @@ public:
 	template <_COMPONENT Com>
 	void AddComponent();
 
+
 	// TODO : tempalte specification
 	/*template<>
 	void AddComponent<Transform>();*/
@@ -58,6 +59,15 @@ private:
 template<_COMPONENT Com>
 inline void GameObject::AddComponent()
 {
+	if constexpr (std::is_same_v<Com, Transform>)
+	{
+		if (_transform == nullptr)
+		{
+			_init_transform();
+		}
+		return;
+	}
+
 	auto idx = std::type_index(typeid(Com));
 	auto it = _components.find(idx);
 	if (it == _components.end())
@@ -76,6 +86,11 @@ inline void GameObject::AddComponent()
 template<_COMPONENT Com>
 inline Com* GameObject::GetComponent()
 {
+	if constexpr (std::is_same_v<Com, Transform>)
+	{
+		return _transform;
+	}
+
 	auto it = _components.find(std::type_index(typeid(Com)));
 	if (it != _components.end())
 	{
@@ -93,6 +108,12 @@ inline Com* GameObject::GetComponent()
 template<_COMPONENT Com>
 inline bool GameObject::TryGetComponent(OUT Com*& component)
 {
+	if constexpr (std::is_same_v<Com, Transform>)
+	{
+		component = _transform;
+		return true;
+	}
+
 	auto it = _components.find(std::type_index(typeid(Com)));
 	if (it == _components.end()) return false;
 	else
