@@ -163,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="Behaviour.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="CoreHeader.h" />
     <ClInclude Include="CoreMacro.h" />

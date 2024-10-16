@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CoreHeader.h"
+#include "CoreMacro.h"
 
 NAMESPACE_OPEN(tEngine::Types)
 

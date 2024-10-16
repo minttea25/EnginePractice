@@ -60,6 +60,4 @@ void Player::LateUpdate()
 
 void Player::Render(HDC hdc)
 {
-	auto v = gameObject()->transform()->position();
-	Rectangle(hdc, v.x, v.y, 100.0f + v.x, 100.0f + v.y);
 }

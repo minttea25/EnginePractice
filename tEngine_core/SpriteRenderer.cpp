@@ -6,7 +6,8 @@
 NAMESPACE_OPEN(tEngine)
 
 SpriteRenderer::SpriteRenderer(GameObject* gameObject)
-	: Renderer(gameObject), _textureResource(nullptr)
+	: Renderer(gameObject), _textureResource(nullptr),
+	_scale(Types::Vector3::One())
 {
 }
 
@@ -33,13 +34,12 @@ void SpriteRenderer::Render(HDC hdc)
 	auto image = _textureResource->image();
 	if (image == nullptr) return;
 
-	Transform* tr = gameObject()->GetComponent<Transform>();
-	auto pos = tr->position();
+	auto pos = gameObject()->transform()->position();
 
 	Gdiplus::Graphics graphcis(hdc);
 	
 	graphcis.DrawImage(image, 
-		Gdiplus::Rect(pos.x, pos.y, (int)_textureResource->width(), (int)_textureResource->height()));
+		Gdiplus::Rect(pos.x, pos.y, (int)_textureResource->width() * _scale.x, (int)_textureResource->height() * _scale.y));
 }
 
 
