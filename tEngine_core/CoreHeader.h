@@ -1,5 +1,7 @@
 #pragma once
 
+#define NOMINMAX
+
 #include "Windows.h"
 
 #include "CoreMacro.h"
@@ -13,3 +15,4 @@
 #pragma comment(lib, "gdiplus.lib")
 
 namespace tEngine {}
+using namespace tEngine::Types;

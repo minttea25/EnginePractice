@@ -32,7 +32,10 @@
 #include "Vector2.h"
 #include "Vector2Int.h"
 #include "Vector3.h"
+#include "Vector4.h"
 #include "Color.h"
+#include "Rect.h"
+#include "Bounds.h"
 
 
 #include "Object.h"
