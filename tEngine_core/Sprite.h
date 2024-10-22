@@ -5,20 +5,24 @@
 #include "Rect.h"
 #include "Vector4.h"
 
+
 NAMESPACE_OPEN(tEngine)
+using namespace tEngine::Types;
+
 namespace graphics { class TextureResource; }
 
 class Sprite final : public Object
 {
 public:
-	Sprite()
-		: _bounds({}), _rect({}),
-		_border({}), _pivot({ 0.5f, 0.5f }),
-		_index(0)
-	{
-
-	}
-	~Sprite() {}
+	explicit Sprite(
+		graphics::TextureResource* texture,
+		const unsigned int index,
+		const Rect& rect, 
+		const Vector2& pivot = {},
+		const Vector4& border = {},
+		const Bounds& bounds = {} 
+		);
+	~Sprite() noexcept;
 
 	unsigned int index() const { return _index; }
 	void set_index(const unsigned int index) { _index = index; }
@@ -31,10 +35,10 @@ public:
 	graphics::TextureResource* texture() { return _texture; }
 	void set_texture(graphics::TextureResource* texture) { _texture = texture; }
 private:
-	Bounds _bounds;
 	Rect _rect;
-	Vector4 _border;
 	Vector2 _pivot;
+	Vector4 _border;
+	Bounds _bounds;
 	unsigned int _index;
 	graphics::TextureResource* _texture;
 };

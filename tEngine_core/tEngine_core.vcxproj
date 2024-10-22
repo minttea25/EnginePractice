@@ -185,12 +185,15 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteEditor.h" />
     <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="TextureResource.h" />
     <ClInclude Include="tInput.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="tTime.h" />
     <ClInclude Include="tTypes.h" />
+    <ClInclude Include="tUtils.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector2Int.h" />
     <ClInclude Include="Vector3.h" />
@@ -219,7 +222,9 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpriteEditor.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="TextureResource.cpp" />
     <ClCompile Include="tInput.cpp" />
     <ClCompile Include="Transform.cpp" />

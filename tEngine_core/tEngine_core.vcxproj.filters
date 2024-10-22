@@ -117,6 +117,15 @@
     <ClInclude Include="Vector4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteSheet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteEditor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -186,6 +195,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vector4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteSheet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

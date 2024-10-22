@@ -35,7 +35,7 @@ public:
 
 	void Encapsulate(const Vector3& point)
 	{
-		_set_min_max(std::min(min(), point), std::max(max(), point));
+		_set_min_max(Min(min(), point), Max(max(), point));
 	}
 
 	void Encapsulate(const Bounds& bounds)

@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreHeader.h"
+#include "tUtils.h"
 
 NAMESPACE_OPEN(tEngine::Types)
 
@@ -90,6 +91,16 @@ static bool operator ==(const Vector4& lhs, const Vector4& rhs)
 static bool operator !=(const Vector4& lhs, const Vector4& rhs)
 {
 	return !(lhs == rhs);
+}
+
+static Vector4 Max(const Vector4& lhs, const Vector4& rhs)
+{
+	return Vector4(utils::max(lhs.x, rhs.x), utils::max(lhs.y, rhs.y), utils::max(lhs.z, rhs.z), utils::max(lhs.w, rhs.w));
+}
+
+static Vector4 Min(const Vector4& lhs, const Vector4& rhs)
+{
+	return Vector4(utils::min(lhs.x, rhs.x), utils::min(lhs.y, rhs.y), utils::min(lhs.z, rhs.z), utils::min(lhs.w, rhs.w));
 }
 
 inline float Vector4::Dot(const Vector4& a, const Vector4& b)

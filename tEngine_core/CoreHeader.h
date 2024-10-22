@@ -6,6 +6,7 @@
 
 #include "CoreMacro.h"
 #include "tTypes.h"
+#include "tUtils.h"
 
 #include <mmsystem.h>
 #include <dinput.h>
@@ -14,5 +15,3 @@
 #include "gdiplus.h"
 #pragma comment(lib, "gdiplus.lib")
 
-namespace tEngine {}
-using namespace tEngine::Types;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMacro.h"
+#include "tUtils.h"
 
 NAMESPACE_OPEN(tEngine::Types)
 
@@ -85,6 +86,16 @@ static bool operator!=(const Vector3& lhs, const Vector3& rhs)
 	return !(lhs == rhs);
 }
 
+static Vector3 Max(const Vector3& lhs, const Vector3& rhs)
+{
+	return Vector3(utils::max(lhs.x, rhs.x), utils::max(lhs.y, rhs.y), utils::max(lhs.z, rhs.z));
+}
+
+static Vector3 Min(const Vector3& lhs, const Vector3& rhs)
+{
+	return Vector3(utils::min(lhs.x, rhs.x), utils::min(lhs.y, rhs.y), utils::min(lhs.z, rhs.z));
+}
+
 inline Vector3& Vector3::operator=(const Vector3& other)
 {
 	x = other.x;
@@ -106,5 +117,5 @@ inline float Vector3::Magnitude(const Vector3& v)
 	return sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 }
 
+
 NAMESPACE_CLOSE
-#pragma once
