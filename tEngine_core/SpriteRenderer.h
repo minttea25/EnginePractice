@@ -3,7 +3,6 @@
 #include "CoreHeader.h"
 #include "Renderer.h"
 #include "Component.h"
-#include "TextureResource.h"
 #include "Vector3.h"
 
 NAMESPACE_OPEN(tEngine)
@@ -11,6 +10,7 @@ NAMESPACE_OPEN(tEngine)
 using namespace Types;
 
 class GameObject;
+class Sprite;
 
 class SpriteRenderer final : public Renderer
 {
@@ -27,8 +27,11 @@ public:
 	// Is textureResource controlled outside of this class?
 	// What if the set_texture_resource called although _textureResource is already existing?
 
-	T_ENGINE_CORE_API void set_texture_resource(graphics::TextureResource* textureResource) { _textureResource = textureResource; }
-	T_ENGINE_CORE_API graphics::TextureResource* texture_resource() { return _textureResource; }
+	//T_ENGINE_CORE_API void set_texture_resource(graphics::TextureResource* textureResource) { _textureResource = textureResource; }
+	//T_ENGINE_CORE_API graphics::TextureResource* texture_resource() { return _textureResource; }
+
+	T_ENGINE_CORE_API void set_sprite(Sprite* sprite) { _sprite = sprite; }
+	T_ENGINE_CORE_API Sprite* sprite() { return _sprite; }
 
 	T_ENGINE_CORE_API Vector3 scale() const { return _scale; }
 	T_ENGINE_CORE_API void set_scale(const Vector3& scale)
@@ -36,7 +39,8 @@ public:
 		_scale = { scale.x, scale.y, scale.z };
 	}
 private:
-	graphics::TextureResource* _textureResource;
+	//graphics::TextureResource* _textureResource;
+	Sprite* _sprite;
 	Vector3 _scale;
 
 };

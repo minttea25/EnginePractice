@@ -5,6 +5,7 @@
 NAMESPACE_OPEN(tEngine)
 
 class GameObject;
+class Transform;
 
 class Component : public Object
 {
@@ -19,6 +20,8 @@ public:
 
 	void set_GameObject(GameObject* gameObject) { _gameObject = gameObject; };
 	T_ENGINE_CORE_API GameObject* gameObject() { return _gameObject; }
+
+	T_ENGINE_CORE_API Transform* transform();
 private:
 	GameObject* _gameObject;
 };

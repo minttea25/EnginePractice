@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMacro.h"
+#include "tUtils.h"
 
 NAMESPACE_OPEN(tEngine::Types)
 
@@ -48,23 +49,7 @@ public:
 public:
 	float x;
 	float y;
-
-private:
-	// Helpers
-	/*static Vector2 s_zeroVector;
-	static Vector2 s_oneVector;
-	static Vector2 s_upVector;
-	static Vector2 s_downVector;
-	static Vector2 s_rightVector;
-	static Vector2 s_leftVector;*/
 };
-
-//static Vector2 s_zeroVector(0.0f, 0.0f);
-//static Vector2 s_oneVector(1.0f, 1.0f);
-//static Vector2 s_upVector(0.0f, 1.0f);
-//static Vector2 s_downVector(0.0f, -1.0f);
-//static Vector2 s_leftVector(-1.0f, 0.0f);
-//static Vector2 s_rightVector(1.0f, 0.0f);
 
 static Vector2 operator+(const Vector2& lhs, const Vector2& rhs)
 {
@@ -96,6 +81,16 @@ static bool operator==(const Vector2& lhs, const Vector2& rhs)
 static bool operator!=(const Vector2& lhs, const Vector2& rhs)
 {
 	return !(lhs == rhs);
+}
+
+static Vector2 Max(const Vector2& lhs, const Vector2& rhs)
+{
+	return Vector2(utils::max(lhs.x, rhs.x), utils::max(lhs.y, rhs.y));
+}
+
+static Vector2 Min(const Vector2& lhs, const Vector2& rhs)
+{
+	return Vector2(utils::min(lhs.x, rhs.x), utils::min(lhs.y, rhs.y));
 }
 
 inline Vector2 Vector2::Normalize(const Vector2& v)

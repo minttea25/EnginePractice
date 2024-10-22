@@ -7,6 +7,8 @@
 #ifndef PCH_H
 #define PCH_H
 
+#define NOMINMAX
+
 #define T_ENGINE_CORE_EXPORTS
 
 // add headers that you want to pre-compile here
@@ -28,11 +30,15 @@
 
 #include "CoreMacro.h"
 #include "tTypes.h"
+#include "tUtils.h"
 
 #include "Vector2.h"
 #include "Vector2Int.h"
 #include "Vector3.h"
+#include "Vector4.h"
 #include "Color.h"
+#include "Rect.h"
+#include "Bounds.h"
 
 
 #include "Object.h"

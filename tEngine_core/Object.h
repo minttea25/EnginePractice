@@ -12,7 +12,7 @@ class Object
 {
 public:
 	Object();
-	virtual ~Object();
+	virtual ~Object() noexcept;
 
 	void SetName(const String& name) { _name = name; }
 	String& name() { return _name; }
@@ -31,7 +31,7 @@ public:
 	}
 
 	template<_GAMEOBJECT GO>
-	static GO* Instantiate(enums::eLayerType type, const Types::Vector3 position)
+	static GO* Instantiate(enums::eLayerType type, const Types::Vector3& position)
 	{
 		GO* go = new GO();
 		go->Init();

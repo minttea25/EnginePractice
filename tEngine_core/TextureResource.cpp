@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "TextureResource.h"
 #include "ResourceUtil.h"
+#include "SpriteSheet.h"
 
 
 NAMESPACE_OPEN(tEngine::graphics)
@@ -8,7 +9,8 @@ NAMESPACE_OPEN(tEngine::graphics)
 
 TextureResource::TextureResource(const String& path)
     : Resource(enums::eResourceType::Texture), _type(eTextureType::None),
-    _width(0), _height(0), _image(nullptr)
+    _width(0), _height(0), _image(nullptr), _spriteSheet(nullptr),
+    _spriteMode(true)
 {
     Resource::set_path(path);
 }
@@ -43,7 +45,18 @@ HRESULT TextureResource::Load()
     _width = _image->GetWidth();
     _height = _image->GetHeight();
 
+    if (_spriteMode)
+    {
+        _spriteSheet = new SpriteSheet(this);
+        _spriteSheet->Init();
+    }
+
     return S_OK;
+}
+
+Sprite* TextureResource::GetSprite(const int index)
+{
+    return _spriteSheet->operator[](index);
 }
 
 NAMESPACE_CLOSE

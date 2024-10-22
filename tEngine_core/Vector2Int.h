@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMacro.h"
+#include "tUtils.h"
 
 NAMESPACE_OPEN(tEngine::Types)
 
@@ -96,6 +97,16 @@ static bool operator==(const Vector2Int& lhs, const Vector2Int& rhs)
 static bool operator!=(const Vector2Int& lhs, const Vector2Int& rhs)
 {
 	return !(lhs == rhs);
+}
+
+static Vector2Int Max(const Vector2Int& lhs, const Vector2Int& rhs)
+{
+	return Vector2Int(utils::max(lhs.x, rhs.x), utils::max(lhs.y, rhs.y));
+}
+
+static Vector2Int Min(const Vector2Int& lhs, const Vector2Int& rhs)
+{
+	return Vector2Int(utils::min(lhs.x, rhs.x), utils::min(lhs.y, rhs.y));
 }
 
 inline float Vector2Int::Distance(const Vector2Int& a, const Vector2Int& b)

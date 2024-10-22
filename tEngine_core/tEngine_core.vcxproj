@@ -161,7 +161,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="Animator.h" />
     <ClInclude Include="Behaviour.h" />
+    <ClInclude Include="Bounds.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
@@ -181,17 +184,24 @@
     <ClInclude Include="ResourceUtil.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteEditor.h" />
     <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="TextureResource.h" />
     <ClInclude Include="tInput.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="tTime.h" />
     <ClInclude Include="tTypes.h" />
+    <ClInclude Include="tUtils.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector2Int.h" />
     <ClInclude Include="Vector3.h" />
+    <ClInclude Include="Vector4.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Behaviour.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -211,11 +221,15 @@
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpriteEditor.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="TextureResource.cpp" />
     <ClCompile Include="tInput.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="tTime.cpp" />
+    <ClCompile Include="Vector4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
