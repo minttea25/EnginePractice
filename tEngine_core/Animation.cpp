@@ -66,6 +66,13 @@ void Animation::Render(HDC hdc)
 	//imgAttr.SetColorKey(Gdiplus::Color(100, 100, 100), Gdiplus::Color(255, 255, 255));
 
 	Gdiplus::Graphics graphics(hdc);
+
+	float rotation = transform()->RotationZ();
+
+	graphics.TranslateTransform(pos.x, pos.y);
+	graphics.RotateTransform(rotation);
+	graphics.TranslateTransform(-pos.x, -pos.y);
+
 	graphics.DrawImage(image, (INT)pos.x, (INT)pos.y,
 		(INT)sprite->rect().x, (INT)sprite->rect().y,
 		(INT)(sprite->width()), (INT)(sprite->height()),

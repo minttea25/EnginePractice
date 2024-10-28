@@ -32,16 +32,9 @@ public:
 
 	T_ENGINE_CORE_API void set_sprite(Sprite* sprite) { _sprite = sprite; }
 	T_ENGINE_CORE_API Sprite* sprite() { return _sprite; }
-
-	T_ENGINE_CORE_API Vector3 scale() const { return _scale; }
-	T_ENGINE_CORE_API void set_scale(const Vector3& scale)
-	{
-		_scale = { scale.x, scale.y, scale.z };
-	}
 private:
 	//graphics::TextureResource* _textureResource;
 	Sprite* _sprite;
-	Vector3 _scale;
 
 };
 

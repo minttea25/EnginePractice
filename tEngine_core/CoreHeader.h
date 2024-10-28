@@ -4,6 +4,9 @@
 
 #include "Windows.h"
 
+#include <stdexcept>
+#include <cmath>
+
 #include "CoreMacro.h"
 #include "tTypes.h"
 #include "tUtils.h"

@@ -27,7 +27,7 @@ void CameraFollower::Update()
 	if (_target != nullptr && _camera != nullptr)
 	{
 		auto transform = _target->gameObject()->transform();
-		_camera->gameObject()->transform()->SetPosition(transform->position());
+		_camera->gameObject()->transform()->set_position(transform->position());
 	}
 }
 

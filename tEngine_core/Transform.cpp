@@ -5,7 +5,8 @@
 NAMESPACE_OPEN(tEngine)
 
 Transform::Transform(GameObject* gameObject)
-	: Component(gameObject), _position({})
+	: Component(gameObject), _position({}),
+	_rotation({}), _scale({1, 1, 1})
 {
 }
 Transform::~Transform()
@@ -23,6 +24,11 @@ void Transform::LateUpdate()
 }
 void Transform::Render(HDC hdc)
 {
+}
+
+float Transform::RotationZ() const
+{
+	return fmod(rotation().z, 360.0f);
 }
 
 NAMESPACE_CLOSE

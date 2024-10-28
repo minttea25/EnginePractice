@@ -20,7 +20,7 @@ void Object::_instantiate(GameObject*& go, enums::eLayerType type, const Types::
 {
 	auto layer = SceneManager::active_scene()->GetLayer(type);
 	layer->AddGameObject(go);
-	go->transform()->SetPosition(position);
+	go->transform()->set_position(position);
 }
 
 NAMESPACE_CLOSE

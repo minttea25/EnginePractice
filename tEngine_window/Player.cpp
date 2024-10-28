@@ -55,7 +55,7 @@ void Player::LateUpdate()
 		pos.x += dist;
 	}
 
-	transform->SetPosition(pos);
+	transform->set_position(pos);
 }
 
 void Player::Render(HDC hdc)

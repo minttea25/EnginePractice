@@ -39,6 +39,7 @@
 #include "Color.h"
 #include "Rect.h"
 #include "Bounds.h"
+#include "Quaternion.h"
 
 
 #include "Object.h"
