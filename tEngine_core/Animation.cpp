@@ -62,6 +62,9 @@ void Animation::Render(HDC hdc)
 
 	auto pos = transform()->position();
 
+	//Gdiplus::ImageAttributes imgAttr = {};
+	//imgAttr.SetColorKey(Gdiplus::Color(100, 100, 100), Gdiplus::Color(255, 255, 255));
+
 	Gdiplus::Graphics graphics(hdc);
 	graphics.DrawImage(image, (INT)pos.x, (INT)pos.y,
 		(INT)sprite->rect().x, (INT)sprite->rect().y,

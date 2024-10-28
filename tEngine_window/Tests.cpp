@@ -29,6 +29,22 @@ void PlayScene::Init()
 			return;
 		}
 
+		auto chara1 = Resources::Load<graphics::TextureResource>(L"Chara01.png");
+		if (chara1 == nullptr)
+		{
+			return;
+		}
+		auto chara2 = Resources::Load<graphics::TextureResource>(L"Chara02.png");
+		if (chara2 == nullptr)
+		{
+			return;
+		}
+		auto chara3 = Resources::Load<graphics::TextureResource>(L"Chara03.png");
+		if (chara3 == nullptr)
+		{
+			return;
+		}
+
 		auto bg = Object::Instantiate<GameObject>(enums::eLayerType::BackGround, Types::Vector3(30, 30));
 		bg->AddComponent<SpriteRenderer>();
 		bg->GetComponent<SpriteRenderer>()->set_sprite(texture->GetSprite(0));
@@ -58,6 +74,21 @@ void PlayScene::Init()
 			return;
 		}
 		animObj->GetComponent<Animator>()->PlayAnimation(L"Idle");
+
+		auto chara = Object::Instantiate<GameObject>(enums::eLayerType::Player, { 500, 500 });
+		chara->AddComponent<Animator>();
+		auto ret2 = chara->GetComponent<Animator>()
+			->CreateAnimation(
+				L"Idle",
+				{ chara1->GetSprite(), chara2->GetSprite(), chara3->GetSprite() },
+				{ 0.3f, 0.6f, 0.9f },
+				true
+			);
+		if (ret2 == false)
+		{
+			return;
+		}
+		chara->GetComponent<Animator>()->PlayAnimation(L"Idle");
 	}
 }
 
