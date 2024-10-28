@@ -14,13 +14,8 @@ public:
 	Animation(GameObject* gameObject);
 	~Animation();
 
-	void CreateAnimation(const String& animation,
-		graphics::TextureResource* spriteSheet,
-		Vector2 leftTop,
-		Vector2 size,
-		Vector2 offset,
-		unsigned int spriteLength,
-		float duration);
+	void CreateAnimation(Vector<Sprite*> spriteSheet, Vector<float> intervals);
+
 
 	void Init();
 	void Update();

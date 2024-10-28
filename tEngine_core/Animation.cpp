@@ -1,5 +1,9 @@
 #include "pch.h"
 #include "Animation.h"
+#include "Animator.h"
+#include "SpriteRenderer.h"
+#include "Transform.h"
+#include "Sprite.h"
 
 NAMESPACE_OPEN(tEngine)
 
@@ -14,9 +18,14 @@ Animation::~Animation()
 {
 }
 
-void Animation::CreateAnimation(const String& animation, graphics::TextureResource* spriteSheet, Vector2 leftTop, Vector2 size, Vector2 offset, unsigned int spriteLength, float duration)
+void Animation::CreateAnimation(Vector<Sprite*> spriteSheet, Vector<float> intervals)
 {
+	_sprites = spriteSheet;
+	_intervals = intervals;
+	
 }
+
+
 
 void Animation::Init()
 {
@@ -33,11 +42,11 @@ void Animation::Update()
 
 	if (_intervals[_index] < _time)
 	{
-		_index++;
-		if (_index == _intervals.size())
+		if (_index >= _intervals.size() - 1)
 		{
 			_complete = true;
 		}
+		else _index++;
 	}
 }
 
@@ -47,6 +56,18 @@ void Animation::LateUpdate()
 
 void Animation::Render(HDC hdc)
 {
+	if (_sprites.size() == 0) return;
+	auto sprite = _sprites[_index];
+	auto image = sprite->texture()->image();
+
+	auto pos = transform()->position();
+
+	Gdiplus::Graphics graphics(hdc);
+	graphics.DrawImage(image, (INT)pos.x, (INT)pos.y,
+		(INT)sprite->rect().x, (INT)sprite->rect().y,
+		(INT)(sprite->width()), (INT)(sprite->height()),
+		Gdiplus::UnitPixel);
+
 }
 
 void Animation::Reset()

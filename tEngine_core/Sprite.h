@@ -32,6 +32,9 @@ public:
 	Vector4 border() const { return _border; }
 	Vector2 pivot() const { return _pivot; }
 
+	float width() const { return _rect.width; }
+	float height() const { return _rect.height; }
+
 	graphics::TextureResource* texture() { return _texture; }
 	void set_texture(graphics::TextureResource* texture) { _texture = texture; }
 private:

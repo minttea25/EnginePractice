@@ -6,6 +6,8 @@
 #include "../tEngine_core/TextureResource.h"
 #include "../tEngine_core/Camera.h"
 #include "../tEngine_core/SpriteEditor.h"
+#include "../tEngine_core/Animation.h"
+#include "../tEngine_core/Animator.h"
 #include "Player.h"
 #include "CameraFollower.h"
 
@@ -42,13 +44,20 @@ void PlayScene::Init()
 			->set_sprite(chara_texture->GetSprite());
 		player->GetComponent<SpriteRenderer>()->set_scale({ 0.5f, 0.5f, 1 });
 
-		auto camera = Object::Instantiate<GameObject>(enums::eLayerType::None);
-		camera->AddComponent<Camera>();
-		camera->GetComponent<Camera>()->set_resolution({ 1600, 900 });
-		camera->AddComponent<CameraFollower>();
-		camera->GetComponent<CameraFollower>()->InitObject();
-		camera->GetComponent<CameraFollower>()->set_Target(player);
-
+		auto animObj = Object::Instantiate<GameObject>(enums::eLayerType::Player, { 150, 150 });
+		animObj->AddComponent<Animator>();
+		auto ret = animObj->GetComponent<Animator>()
+			->CreateAnimation(
+				L"Idle",
+				{ texture->GetSprite(0), texture->GetSprite(1), texture->GetSprite(2), texture->GetSprite(3) },
+				{1, 2, 3, 4},
+				true
+			);
+		if (ret == false)
+		{
+			return;
+		}
+		animObj->GetComponent<Animator>()->PlayAnimation(L"Idle");
 	}
 }
 
