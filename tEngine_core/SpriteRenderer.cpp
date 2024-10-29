@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "Sprite.h"
 #include "TextureResource.h"
+#include "TypeUtils.h"
 
 NAMESPACE_OPEN(tEngine)
 
@@ -34,14 +35,17 @@ void SpriteRenderer::Render(HDC hdc)
 
 	auto image = _sprite->texture()->image();
 
-	auto pos = transform()->position();
-	auto scale = transform()->scale();
+	auto rect = utils::ToRectFDrawDest(_sprite->rect(), transform()->position(), transform()->scale());
 
 	Gdiplus::Graphics graphics(hdc);
-	graphics.DrawImage(image, (INT)pos.x, (INT)pos.y,
+	graphics.DrawImage(image, rect,
+		_sprite->rect().x, _sprite->rect().y,
+		_sprite->width(), _sprite->height(), Gdiplus::UnitPixel);
+
+	/*graphics.DrawImage(image, (INT)pos.x, (INT)pos.y,
 		(INT)_sprite->rect().x, (INT)_sprite->rect().y,
 		(INT)(_sprite->rect().width * scale.x), (INT)(_sprite->rect().height * scale.y),
-		Gdiplus::UnitPixel);
+		Gdiplus::UnitPixel);*/
 }
 
 

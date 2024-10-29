@@ -47,12 +47,12 @@ void PlayScene::Init()
 			return;
 		}
 
-		auto bg = Object::Instantiate<GameObject>(enums::eLayerType::BackGround, Types::Vector3(30, 30));
+		auto bg = Object::Instantiate<GameObject>(enums::eLayerType::BackGround, Types::Vector3(330, 330));
 		bg->AddComponent<SpriteRenderer>();
 		bg->GetComponent<SpriteRenderer>()->set_sprite(texture->GetSprite(0));
 		
 		auto player = Object::Instantiate<GameObject>(enums::eLayerType::Player, Types::Vector3(100, 100, 0));
-		player->AddComponent<Player>();
+		//player->AddComponent<Player>();
 		player->AddComponent<SpriteRenderer>();
 		player->GetComponent<SpriteRenderer>()
 			->set_sprite(chara_texture->GetSprite());
@@ -88,6 +88,7 @@ void PlayScene::Init()
 			return;
 		}
 		chara->GetComponent<Animator>()->PlayAnimation(L"Idle");
+		chara->AddComponent<Player>();
 	}
 	
 
@@ -116,7 +117,8 @@ void PlayScene::Init()
 		}
 
 		auto effect = Object::Instantiate<GameObject>(enums::eLayerType::Player, { 200, 200 });
-		effect->transform()->set_rotation({0, 0, 70});
+		effect->transform()->set_rotation({0, 0, -30});
+		effect->transform()->set_scale({ 3, 3, 1 });
 		effect->AddComponent<Animator>();
 		auto anim = effect->GetComponent<Animator>();
 		Vector<Sprite*> sprites;
@@ -134,8 +136,8 @@ void PlayScene::Init()
 		}
 		anim->PlayAnimation(L"Idle");
 
-	}
-	*/
+	}*/
+	
 }
 
 void PlayScene::Update()

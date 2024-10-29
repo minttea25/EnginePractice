@@ -4,6 +4,7 @@
 #include "SpriteRenderer.h"
 #include "Transform.h"
 #include "Sprite.h"
+#include "TypeUtils.h"
 
 NAMESPACE_OPEN(tEngine)
 
@@ -73,10 +74,18 @@ void Animation::Render(HDC hdc)
 	graphics.RotateTransform(rotation);
 	graphics.TranslateTransform(-pos.x, -pos.y);
 
-	graphics.DrawImage(image, (INT)pos.x, (INT)pos.y,
+
+
+	auto rect = utils::ToRectFDrawDest(sprite->rect(), pos, transform()->scale());
+
+	graphics.DrawImage(image, rect,
+		sprite->rect().x, sprite->rect().y,
+		sprite->width(), sprite->height(), Gdiplus::UnitPixel);
+
+	/*graphics.DrawImage(image, (INT)pos.x, (INT)pos.y,
 		(INT)sprite->rect().x, (INT)sprite->rect().y,
-		(INT)(sprite->width()), (INT)(sprite->height()),
-		Gdiplus::UnitPixel);
+		(INT)(sprite->width() * scale.x), (INT)(sprite->height() * scale.y),
+		Gdiplus::UnitPixel);*/
 
 }
 

@@ -195,6 +195,7 @@
     <ClInclude Include="tTime.h" />
     <ClInclude Include="tTypes.h" />
     <ClInclude Include="tUtils.h" />
+    <ClInclude Include="TypeUtils.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector2Int.h" />
     <ClInclude Include="Vector3.h" />
