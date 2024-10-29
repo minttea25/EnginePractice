@@ -132,6 +132,15 @@
     <ClInclude Include="TypeUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AnimatorController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationClip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Motion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -207,6 +216,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SpriteEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatorController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationClip.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Motion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

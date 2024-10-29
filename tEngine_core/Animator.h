@@ -8,6 +8,7 @@ NAMESPACE_OPEN(tEngine)
 
 class Animation;
 class GameObject;
+class AnimatorController;
 
 class Animator final : public Behaviour
 {
@@ -31,6 +32,7 @@ private:
 	// TEMP
 	Map<String, Animation*> _animations;
 	Animation* _currentAnimation;
+	AnimatorController* _animController;
 
 	bool _loop;
 	bool _enabled;
