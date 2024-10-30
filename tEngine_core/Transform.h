@@ -29,6 +29,8 @@ public:
 	void set_rotation(const Vector3& rotation) { _rotation = Quaternion::FromEuler(rotation); }
 	Vector3 rotation() const { return Quaternion::ToEuler(_rotation); }
 
+	Vector3* position_ref() { return &_position; }
+
 	// TEMP
 	T_ENGINE_CORE_API float RotationZ() const;
 

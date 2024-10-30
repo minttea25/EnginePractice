@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <functional>
 #include <ranges>
+#include <algorithm>
 
 NAMESPACE_OPEN(tEngine)
 
@@ -19,7 +20,7 @@ class GameObject;
 //};
 
 
-struct UNSAFE AnimationProperty
+struct T_ENGINE_CORE_API UNSAFE AnimationProperty
 {
 public:
 	template<class FieldType>
@@ -37,7 +38,7 @@ public:
 	template<class FieldType>
 	void SetValue(FieldType* value)
 	{
-		_ptr = static_cast<void*>(field);
+		_ptr = static_cast<void*>(value);
 	}
 
 	template<class FieldType>
@@ -95,17 +96,17 @@ private:
 class AnimationClip : public Motion
 {
 public:
-	AnimationClip();
-	~AnimationClip();
+	T_ENGINE_CORE_API AnimationClip();
+	T_ENGINE_CORE_API ~AnimationClip();
 
 	// Note: The memory of curve is managed in AnimationClip.
-	void SetCurve(const std::string& property, AnimationCurve* curve);
+	T_ENGINE_CORE_API void SetCurve(const std::string& property, AnimationProperty& animP, AnimationCurve* curve);
 
-	void ClearCurves();
-	void ClearProperties();
+	T_ENGINE_CORE_API void ClearCurves();
+	T_ENGINE_CORE_API void ClearProperties();
 
 	void AddEvent(AnimationEvent& evt);
-	void ClearEvents();
+	T_ENGINE_CORE_API void ClearEvents();
 
 	bool IsPlaying() const { return _isPlaying; }
 	bool IsLoop() const { return _loop; }
@@ -116,9 +117,7 @@ public:
 		return _eventTriggerTimes[index];
 	}
 
-	void Play(GameObject* go, const float time);
-
-	bool Bind(GameObject* target);
+	T_ENGINE_CORE_API void Play(GameObject* go, const float time);
 private:
 	void _sort_eventTriggerTimes()
 	{
@@ -126,6 +125,7 @@ private:
 	}
 
 private:
+	// TODO : Not tested yet.
 	Map<std::string, std::pair<AnimationProperty, void*>> _properties;
 	Map<std::string, std::pair<AnimationProperty, AnimationCurve*>> _curves;
 

@@ -9,12 +9,15 @@
 #include "../tEngine_core/Animation.h"
 #include "../tEngine_core/Animator.h"
 #include "../tEngine_core/Transform.h"
+#include "../tEngine_core/AnimationCurve.h"
+#include "../tEngine_core/AnimatorController.h"
+#include "../tEngine_core/AnimationClip.h"
 #include "Player.h"
 #include "CameraFollower.h"
 
 void PlayScene::Init()
 {
-	
+	/*
 	{
 		auto texture = Resources::Load<graphics::TextureResource>(L"sample720.png");
 		if (texture == nullptr)
@@ -89,8 +92,8 @@ void PlayScene::Init()
 		}
 		chara->GetComponent<Animator>()->PlayAnimation(L"Idle");
 		chara->AddComponent<Player>();
-	}
-	
+	}*/
+
 
 	/*
 	{
@@ -137,7 +140,35 @@ void PlayScene::Init()
 		anim->PlayAnimation(L"Idle");
 
 	}*/
-	
+
+	{
+		auto chara1 = Resources::Load<graphics::TextureResource>(L"Chara01.png");
+		if (chara1 == nullptr)
+		{
+			return;
+		}
+
+		auto go = Object::Instantiate<GameObject>(enums::eLayerType::Player, { 100, 100 });
+		go->AddComponent<SpriteRenderer>();
+		go->GetComponent<SpriteRenderer>()->set_sprite(chara1->GetSprite());
+		go->AddComponent<Animator>();
+		auto ttt = go->transform()->position_ref()->get_x_ref();
+		AnimationCurve* curve = new AnimationCurve(AnimationCurveInterpolationMode::Lerp);
+		curve->AddKey(KeyFrame(0.0f, 100.0f));
+		curve->AddKey(KeyFrame(2.0f, 200));
+		curve->AddKey(KeyFrame(4.0f, 300));
+		curve->AddKey(KeyFrame(6.0f, 400));
+		curve->AddKey(KeyFrame(8.0f, 500));
+		AnimationClip* clip = new AnimationClip();
+		AnimationProperty* property = new AnimationProperty();
+		void* ptr = go->transform()->position_ref()->get_x_ref();
+		property->BindRef(ptr);
+		clip->SetCurve("TEMP", *property, curve);
+		AnimatorController* animController = new AnimatorController();
+		animController->set_clip(clip);
+		auto anim = go->GetComponent<Animator>();
+		anim->set_animatorController(animController);
+	}
 }
 
 void PlayScene::Update()

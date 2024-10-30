@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Animator.h"
 #include "Animation.h"
+#include "AnimatorController.h"
 
 NAMESPACE_OPEN(tEngine)
 
@@ -8,7 +9,8 @@ Animator::Animator(GameObject* gameObject)
 	: Behaviour(gameObject),
 	_currentAnimation(nullptr),
 	_loop(true),
-	_enabled(true)
+	_enabled(true),
+	_time(0)
 {
 }
 
@@ -27,13 +29,18 @@ void Animator::Init()
 
 void Animator::Update()
 {
-	if (_currentAnimation)
+	/*if (_currentAnimation)
 	{
 		_currentAnimation->Update();
 		if (_currentAnimation->IsComplete() && _loop)
 		{
 			_currentAnimation->Reset();
 		}
+	}*/
+	_time += Time::deltaTime();
+	if (_animController)
+	{
+		_animController->PlayAnimation(_time);
 	}
 }
 
@@ -43,7 +50,7 @@ void Animator::LateUpdate()
 
 void Animator::Render(HDC hdc)
 {
-	if (_currentAnimation) _currentAnimation->Render(hdc);
+	// if (_currentAnimation) _currentAnimation->Render(hdc);
 }
 
 bool Animator::CreateAnimation(const String& animation, Vector<Sprite*> sprites, Vector<float> intervals, bool loop)
@@ -99,6 +106,7 @@ void Animator::PlayAnimation(const String& key, bool loop)
 	_currentAnimation->Reset();
 	_loop = loop;
 }
+
 
 
 

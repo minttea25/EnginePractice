@@ -25,6 +25,8 @@ public:
 	{
 	}
 
+	float* get_x_ref() { return &x; } // TEMP
+
 	~Vector3() noexcept {}
 
 

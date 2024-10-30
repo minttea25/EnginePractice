@@ -27,7 +27,8 @@ public:
 	T_ENGINE_CORE_API void PlayAnimation(const String& key, bool loop = true);
 
 	
-	
+	// TEMP
+	T_ENGINE_CORE_API void set_animatorController(AnimatorController* animController) { _animController = animController; }
 private:
 	// TEMP
 	Map<String, Animation*> _animations;
@@ -36,6 +37,7 @@ private:
 
 	bool _loop;
 	bool _enabled;
+	float _time;
 };
 
 NAMESPACE_CLOSE

@@ -5,6 +5,7 @@
 NAMESPACE_OPEN(tEngine)
 
 AnimationClip::AnimationClip()
+	: Motion(), _loop(true), _isPlaying(false)
 {
 }
 
@@ -14,10 +15,9 @@ AnimationClip::~AnimationClip()
 	ClearEvents();
 }
 
-void AnimationClip::SetCurve(const std::string& property, AnimationCurve* curve)
+void AnimationClip::SetCurve(const std::string& property, AnimationProperty& animP, AnimationCurve* curve)
 {
-	// TODO
-	// CURRENT
+	_curves.insert({ property, { animP, curve } });
 }
 
 void AnimationClip::ClearCurves()
@@ -47,10 +47,16 @@ void AnimationClip::ClearEvents()
 
 void AnimationClip::Play(GameObject* go, const float time)
 {
-	// TODO : What if there are more properties?
-		
-	auto transform = go->transform(); // NOT NULL
-	
+	/*for (const auto& kv : _properties)
+	{
+
+	}*/
+
+	for (auto& kv : _curves)
+	{
+		float value = kv.second.second->Evaluate(time);
+		kv.second.first.SetValue<float>(value);
+	}
 }
 
 
