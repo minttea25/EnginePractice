@@ -19,6 +19,9 @@ namespace tEngine
 	template<typename _Kty, typename _Ty>
 	using Map = std::map<_Kty, _Ty>;
 
+	template<typename _Kty, typename _Ty>
+	using MultiMap = std::multimap<_Kty, _Ty>;
+
 	template<typename _Ty>
 	using Vector = std::vector<_Ty>;
 

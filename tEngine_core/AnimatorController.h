@@ -9,6 +9,6 @@ class AnimatorController
 public:
 	AnimatorController();
 	~AnimatorController();
-}
+};
 
 NAMESPACE_CLOSE

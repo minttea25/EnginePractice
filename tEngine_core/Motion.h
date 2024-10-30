@@ -8,8 +8,8 @@ NAMESPACE_OPEN(tEngine)
 class Motion : public Object
 {
 public:
-	Motion() {}
-	~Motion() {}
+	Motion();
+	~Motion();
 };
 
 NAMESPACE_CLOSE
