@@ -2,21 +2,22 @@
 #include "AnimationDiscrete.h"
 NAMESPACE_OPEN(tEngine)
 
-AnimationDiscrete::AnimationDiscrete(const std::type_index& _typeIndex)
-	: _keys({}), _typeIndex(_typeIndex), _length(-1)
+AnimationDiscrete::AnimationDiscrete(const std::type_index& _typeIndex, void* firstFrameValue)
+	: _keys{ {0.0f, firstFrameValue} }, _typeIndex(_typeIndex)
 {
 }
 
 AnimationDiscrete::~AnimationDiscrete()
 {
+	_keys.clear();
 }
 
-void AnimationDiscrete::Build()
+float AnimationDiscrete::LastLength() const
 {
-	// TODO more
-	_length = _keys.crbegin()->first;
+	// Note : the size is at least 1. (start frame state)
+	ASSERT_CRASH(_keys.size() != 0);
+	return _keys.crbegin()->first;
 }
-
 
 void AnimationDiscrete::AddKey(const float time, void* value)
 {
@@ -24,15 +25,12 @@ void AnimationDiscrete::AddKey(const float time, void* value)
 	_keys[time] = value;
 }
 
-void* AnimationDiscrete::Evaluate(const float time) const
+void* AnimationDiscrete::GetValue(const float time) const
 {
-	if (time >= _length) return _keys.crbegin()->second;
-
 	// TODO : slow...
-	auto it = _keys.upper_bound(time); // It can not be end()
-	it = std::prev(it);
-
-	return it->second;
+	auto it = _keys.upper_bound(time);
+	if (it == _keys.end() || it->first == _keys.crbegin()->first) return _keys.crbegin()->second;
+	else return std::prev(it)->second;
 }
 
 NAMESPACE_CLOSE

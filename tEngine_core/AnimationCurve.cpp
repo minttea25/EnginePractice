@@ -5,17 +5,34 @@
 NAMESPACE_OPEN(tEngine)
 
 
-AnimationCurve::AnimationCurve(AnimationCurveInterpolationMode mode)
-	: _mode(mode)
+AnimationCurve::AnimationCurve(const KeyFrame& firstFrame, AnimationCurveInterpolationMode mode)
+	: _mode(mode), _keys{firstFrame}
 {
+	ASSERT_CRASH(firstFrame.time == 0.0f);
 }
 
 AnimationCurve::~AnimationCurve()
 {
+	_keys.clear();
+}
+
+
+float AnimationCurve::LastLength() const
+{
+	// Note : the size is at least 1. (start frame state)
+	ASSERT_CRASH(_keys.size() != 0);
+	return _keys.crbegin()->time;
 }
 
 void AnimationCurve::AddKey(const KeyFrame& keyFrame)
 {
+	// check duplicates
+	auto it = std::ranges::find(_keys, keyFrame.time, &KeyFrame::time);
+	if (it != _keys.end())
+	{
+		throw std::exception("Key time is already in keyframes.");
+	}
+
 	_keys.push_back(keyFrame);
 	_sort_keyframes();
 }
@@ -28,8 +45,6 @@ float AnimationCurve::Evaluate(const float time) const
 
 	if (time >= _keys.back().time) return _keys.back().value;
 
-	//auto it = std::ranges::lower_bound(_keys, time, {}, &KeyFrame::time);
-	//if (it >= std::prev(_keys.end())) return _keys.back().value;
 	auto it = std::ranges::upper_bound(_keys, time, {}, &KeyFrame::time);
 
 	const KeyFrame& kf1 = *std::prev(it);
@@ -46,6 +61,7 @@ float AnimationCurve::Evaluate(const float time) const
 	case tEngine::AnimationCurveInterpolationMode::Hermite:
 		return HermiteInterpolate(kf1, kf2, t);
 	default:
+		// error undefined
 		return 0.0f;
 	}
 }
@@ -53,8 +69,8 @@ float AnimationCurve::Evaluate(const float time) const
 float AnimationCurve::Lerp(const float a, const float b, const float t) const
 {
 	float tt = a + (b - a) * t;
-	OutputDebugStringW(std::to_wstring(tt).c_str());
-	OutputDebugStringW(L"\n");
+	//OutputDebugStringW(std::to_wstring(tt).c_str());
+	//OutputDebugStringW(L"\n");
 	return a + (b - a) * t;
 }
 

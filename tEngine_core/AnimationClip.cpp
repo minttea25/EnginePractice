@@ -4,8 +4,9 @@
 
 NAMESPACE_OPEN(tEngine)
 
-AnimationClip::AnimationClip()
-	: Motion(), _loop(true), _isPlaying(false)
+
+AnimationClip::AnimationClip(const float length)
+	: Motion(), _loop(true)
 {
 }
 
@@ -19,11 +20,13 @@ AnimationClip::~AnimationClip()
 void AnimationClip::SetCurve(const std::string& property, AnimationProperty& animP, AnimationCurve* curve)
 {
 	_curves.insert({ property, { animP, curve } });
+	_length = utils::max(_length, curve->LastLength());
 }
 
 void AnimationClip::SetDiscrete(const std::string& property, AnimationProperty& animP, AnimationDiscrete* discrete)
 {
 	_discretes.insert({ property,  {animP, discrete } });
+	_length = utils::max(_length, discrete->LastLength());
 }
 
 void AnimationClip::ClearCurves()
@@ -44,6 +47,7 @@ void AnimationClip::AddEvent(AnimationEvent& evt)
 	_sort_eventTriggerTimes();
 
 	_events.insert({ evt.time(), evt});
+	_length = utils::max(_length, evt.time());
 }
 
 void AnimationClip::ClearEvents()
@@ -52,20 +56,24 @@ void AnimationClip::ClearEvents()
 	_eventTriggerTimes.clear();
 }
 
-void AnimationClip::Play(GameObject* go, const float time)
+void AnimationClip::SetDirty()
 {
-	for (auto& kv : _discretes)
-	{
-		void* value = kv.second.second->Evaluate(time);
-		kv.second.first.SetValue(value);
-	}
-
-	for (auto& kv : _curves)
-	{
-		float value = kv.second.second->Evaluate(time);
-		kv.second.first.SetValue<float>(value);
-	}
 }
+
+//void AnimationClip::Play(GameObject* go, const float currentTime)
+//{
+//	for (auto& kv : _discretes)
+//	{
+//		void* value = kv.second.second->GetValue(currentTime);
+//		kv.second.first.SetValue(value);
+//	}
+//
+//	for (auto& kv : _curves)
+//	{
+//		float value = kv.second.second->Evaluate(currentTime);
+//		kv.second.first.SetValue<float>(value);
+//	}
+//}
 
 
 NAMESPACE_CLOSE

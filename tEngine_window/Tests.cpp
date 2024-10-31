@@ -167,36 +167,37 @@ void PlayScene::Init()
 		go->GetComponent<SpriteRenderer>()->set_sprite(chara1->GetSprite());
 		go->AddComponent<Animator>();
 
-		AnimationDiscrete* discrete = new AnimationDiscrete(typeid(tEngine::Sprite));
-		discrete->AddKey(0, chara1->GetSprite());
+		AnimationDiscrete* discrete = new AnimationDiscrete(typeid(tEngine::Sprite), chara1->GetSprite());
 		discrete->AddKey(0.5f, chara2->GetSprite());
 		discrete->AddKey(1, chara3->GetSprite());
 		discrete->AddKey(1.5f, chara1->GetSprite());
 		discrete->AddKey(2.0f, chara2->GetSprite());
 		discrete->AddKey(2.5f, chara3->GetSprite());
 		discrete->AddKey(3.0f, chara1->GetSprite());
-		discrete->AddKey(3.5f, chara2->GetSprite());
-		discrete->AddKey(4.0f, chara3->GetSprite());
-		discrete->Build();
 		AnimationProperty* p1 = new AnimationProperty();
 		void* ptr1 = go->GetComponent<SpriteRenderer>()->get_sprite_ref();
 		//p1->BindRef(ptr1);
 		//p1->BindRef(&SpriteRenderer::_sprite, go->GetComponent<SpriteRenderer>());
 		p1->BindRef(go->GetComponent<SpriteRenderer>()->get_sprite_ref());
 
-		AnimationCurve* curve = new AnimationCurve(AnimationCurveInterpolationMode::Lerp);
-		curve->AddKey(KeyFrame(0.0f, 100.0f));
-		curve->AddKey(KeyFrame(2.0f, 200));
-		curve->AddKey(KeyFrame(4.0f, 300));
-		curve->AddKey(KeyFrame(6.0f, 400));
-		curve->AddKey(KeyFrame(8.0f, 500));
+		AnimationCurve* curve = new AnimationCurve(KeyFrame(0.0f, 100.0f), AnimationCurveInterpolationMode::Lerp);
+		curve->AddKey(KeyFrame(1.5f, 300));
+		curve->AddKey(KeyFrame(3.0f, 500));
 		AnimationProperty* p2 = new AnimationProperty();
 		void* ptr = go->transform()->position_ref()->get_x_ref();
 		p2->BindRef(ptr);
 
+		AnimationEvent evt(3.0f);
+		evt.SetMethod([=]()
+			{ 
+				OutputDebugStringW(L"Event Occured!"); 
+			}
+		);
+
 		AnimationClip* clip = new AnimationClip();
 		clip->SetCurve("TEMP", *p2, curve);
 		clip->SetDiscrete("TEMP", *p1, discrete);
+		clip->AddEvent(evt);
 
 		AnimatorController* animController = new AnimatorController();
 		animController->set_clip(clip);
