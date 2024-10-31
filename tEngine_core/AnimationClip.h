@@ -3,6 +3,7 @@
 #include "CoreHeader.h"
 #include "Motion.h"
 #include "AnimationCurve.h"
+#include "AnimationDiscrete.h"
 #include <stdexcept>
 #include <functional>
 #include <ranges>
@@ -13,16 +14,24 @@ NAMESPACE_OPEN(tEngine)
 class AnimatorContrller;
 class GameObject;
 
-//enum class AnimationProperty
-//{
-//	Transform,
-//	SpriteRenderer
-//};
 
+enum class AnimationPropertyType
+{
+	Discrete,
+	Continuous,
+};
 
 struct T_ENGINE_CORE_API UNSAFE AnimationProperty
 {
 public:
+	void* get() { return _ptr; }
+
+	template<_COMPONENT Com, class FieldType>
+	void BindRef(FieldType Com::* field, Com* component)
+	{
+		_ptr = &(component->*field);
+	}
+
 	template<class FieldType>
 	void BindRef(FieldType* field)
 	{
@@ -35,10 +44,9 @@ public:
 		_ptr = field;
 	}
 
-	template<class FieldType>
-	void SetValue(FieldType* value)
+	void SetValue(void* value)
 	{
-		_ptr = static_cast<void*>(value);
+		*reinterpret_cast<void**>(_ptr) = value;
 	}
 
 	template<class FieldType>
@@ -47,11 +55,6 @@ public:
 		*reinterpret_cast<FieldType*>(_ptr) = value;
 	}
 
-	/*template<>
-	void SetValue(const float value)
-	{
-		*reinterpret_cast<float*>(_ptr) = value;
-	}*/
 private:
 	void* _ptr;
 };
@@ -101,9 +104,10 @@ public:
 
 	// Note: The memory of curve is managed in AnimationClip.
 	T_ENGINE_CORE_API void SetCurve(const std::string& property, AnimationProperty& animP, AnimationCurve* curve);
+	T_ENGINE_CORE_API void SetDiscrete(const std::string& property, AnimationProperty& animP, AnimationDiscrete* discrete);
 
 	T_ENGINE_CORE_API void ClearCurves();
-	T_ENGINE_CORE_API void ClearProperties();
+	T_ENGINE_CORE_API void ClearDiscretes();
 
 	void AddEvent(AnimationEvent& evt);
 	T_ENGINE_CORE_API void ClearEvents();
@@ -125,8 +129,7 @@ private:
 	}
 
 private:
-	// TODO : Not tested yet.
-	Map<std::string, std::pair<AnimationProperty, void*>> _properties;
+	Map<std::string, std::pair<AnimationProperty, AnimationDiscrete*>> _discretes;
 	Map<std::string, std::pair<AnimationProperty, AnimationCurve*>> _curves;
 
 	MultiMap<float, AnimationEvent> _events;

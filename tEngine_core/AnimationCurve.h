@@ -50,7 +50,7 @@ public:
 		return _keys[index];
 	}
 
-	int length() const { return _keys.size(); }
+	int size() const { return _keys.size(); }
 
 	T_ENGINE_CORE_API void AddKey(const KeyFrame& keyFrame);
 	T_ENGINE_CORE_API float Evaluate(const float time) const;

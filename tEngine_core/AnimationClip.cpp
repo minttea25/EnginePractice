@@ -12,6 +12,7 @@ AnimationClip::AnimationClip()
 AnimationClip::~AnimationClip()
 {
 	ClearCurves();
+	ClearDiscretes();
 	ClearEvents();
 }
 
@@ -20,15 +21,21 @@ void AnimationClip::SetCurve(const std::string& property, AnimationProperty& ani
 	_curves.insert({ property, { animP, curve } });
 }
 
+void AnimationClip::SetDiscrete(const std::string& property, AnimationProperty& animP, AnimationDiscrete* discrete)
+{
+	_discretes.insert({ property,  {animP, discrete } });
+}
+
 void AnimationClip::ClearCurves()
 {
 	for (auto& ptr : _curves) delete ptr.second.second;
 	_curves.clear();
 }
 
-void AnimationClip::ClearProperties()
+void AnimationClip::ClearDiscretes()
 {
-	_properties.clear();
+	for (auto& ptr : _discretes) delete ptr.second.second;
+	_discretes.clear();
 }
 
 void AnimationClip::AddEvent(AnimationEvent& evt)
@@ -47,10 +54,11 @@ void AnimationClip::ClearEvents()
 
 void AnimationClip::Play(GameObject* go, const float time)
 {
-	/*for (const auto& kv : _properties)
+	for (auto& kv : _discretes)
 	{
-
-	}*/
+		void* value = kv.second.second->Evaluate(time);
+		kv.second.first.SetValue(value);
+	}
 
 	for (auto& kv : _curves)
 	{
