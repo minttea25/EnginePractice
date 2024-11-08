@@ -2,8 +2,8 @@
 #include "AnimationDiscrete.h"
 NAMESPACE_OPEN(tEngine)
 
-AnimationDiscrete::AnimationDiscrete(const std::type_index& _typeIndex, void* firstFrameValue)
-	: _keys{ {0.0f, firstFrameValue} }, _typeIndex(_typeIndex)
+AnimationDiscrete::AnimationDiscrete(const std::type_index& _typeIndex, void* firstFrameValue, const float lastTime)
+	: _keys{ { 0.0f, firstFrameValue }, {lastTime, firstFrameValue } }, _typeIndex(_typeIndex)
 {
 }
 
@@ -14,8 +14,9 @@ AnimationDiscrete::~AnimationDiscrete()
 
 float AnimationDiscrete::LastLength() const
 {
-	// Note : the size is at least 1. (start frame state)
+	// Note : the size is at least 2. (start and last frame state)
 	ASSERT_CRASH(_keys.size() != 0);
+	auto a = _keys.crbegin()->first;
 	return _keys.crbegin()->first;
 }
 

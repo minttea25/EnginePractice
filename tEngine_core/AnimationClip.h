@@ -61,14 +61,14 @@ private:
 
 // Note: Unity에서는 GameObject의 메타데이터를 읽어 호출 가능한 메서드 목록을 불러오고 에디터에서 선택 + 파라미터 값 지정
 // Paramter Type: float, string, int, bool
-struct T_ENGINE_CORE_API AnimationEvent
+struct AnimationEvent
 {
 public:
-	AnimationEvent() : _time(0.0f) {}
-	AnimationEvent(const float time) : _time(time) {}
-	~AnimationEvent() {}
+	T_ENGINE_CORE_API AnimationEvent() : _time(0.0f) {}
+	T_ENGINE_CORE_API AnimationEvent(const float time) : _time(time) {}
+	T_ENGINE_CORE_API ~AnimationEvent() {}
 
-	float time() const { return _time; }
+	T_ENGINE_CORE_API float time() const { return _time; }
 
 	template<class Obj, class... Args>
 	void SetMethod(Obj* obj, void(Obj::* pfunc)(Args...), Args&&... args)
@@ -87,12 +87,12 @@ public:
 			};
 	}
 
-	void SetMethod(std::function<void()>&& method)
+	T_ENGINE_CORE_API void SetMethod(std::function<void()>&& method)
 	{
 		_method = method;
 	}
 
-	void Invoke()
+	T_ENGINE_CORE_API void Invoke()
 	{
 		if (_method) _method();
 	}
@@ -115,16 +115,26 @@ public:
 	T_ENGINE_CORE_API ~AnimationClip();
 
 	// Note: The memory of curve is managed in AnimationClip.
-	T_ENGINE_CORE_API void SetCurve(const std::string& property, AnimationProperty& animP, AnimationCurve* curve);
-	T_ENGINE_CORE_API void SetDiscrete(const std::string& property, AnimationProperty& animP, AnimationDiscrete* discrete);
+	T_ENGINE_CORE_API void SetCurve(const std::string& property, AnimationProperty animP, AnimationCurve* curve);
+	T_ENGINE_CORE_API void SetDiscrete(const std::string& property, AnimationProperty animP, AnimationDiscrete* discrete);
+
+
+	T_ENGINE_CORE_API AnimationCurve*& GetCurve(const std::string& property)
+	{
+		if (_curves.contains(property)) return _curves[property].second;
+		else throw std::exception("");
+	}
+	T_ENGINE_CORE_API AnimationDiscrete* GetDiscrete(const std::string& property)
+	{
+		if (_discretes.contains(property)) return _discretes[property].second;
+		else throw std::exception("");
+	}
 
 	T_ENGINE_CORE_API void ClearCurves();
 	T_ENGINE_CORE_API void ClearDiscretes();
 
 	T_ENGINE_CORE_API void AddEvent(AnimationEvent& evt);
 	T_ENGINE_CORE_API void ClearEvents();
-
-	void SetDirty();
 
 	bool IsLoop() const { return _loop; }
 	float length() const { return _length; }
@@ -141,7 +151,8 @@ public:
 	auto& get_curves() { return _curves; }
 	auto& get_events() { return _events; }
 
-	//T_ENGINE_CORE_API void Play(GameObject* go, const float currentTime);
+	void UpdateLength(const float length) { _length = length; }
+
 private:
 	void _sort_eventTriggerTimes()
 	{

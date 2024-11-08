@@ -5,10 +5,11 @@
 NAMESPACE_OPEN(tEngine)
 
 
-AnimationCurve::AnimationCurve(const KeyFrame& firstFrame, AnimationCurveInterpolationMode mode)
-	: _mode(mode), _keys{firstFrame}
+AnimationCurve::AnimationCurve(const float initValue, const float lastTime, const AnimationCurveInterpolationMode mode)
+	: _mode(mode), _keys{}
 {
-	ASSERT_CRASH(firstFrame.time == 0.0f);
+	_keys.push_back(KeyFrame(0.0f, initValue));
+	_keys.push_back(KeyFrame(lastTime, initValue));
 }
 
 AnimationCurve::~AnimationCurve()
@@ -26,15 +27,30 @@ float AnimationCurve::LastLength() const
 
 void AnimationCurve::AddKey(const KeyFrame& keyFrame)
 {
-	// check duplicates
 	auto it = std::ranges::find(_keys, keyFrame.time, &KeyFrame::time);
 	if (it != _keys.end())
 	{
-		throw std::exception("Key time is already in keyframes.");
+		*it = keyFrame;
 	}
+	else
+	{
+		_keys.push_back(keyFrame);
+		_sort_keyframes();
+	}
+}
 
-	_keys.push_back(keyFrame);
-	_sort_keyframes();
+void AnimationCurve::AddKey(const float time, const float value)
+{
+	auto it = std::ranges::find(_keys, time, &KeyFrame::time);
+	if (it != _keys.end())
+	{
+		*it = KeyFrame(time, value);
+	}
+	else
+	{
+		_keys.push_back(KeyFrame(time, value));
+		_sort_keyframes();
+	}
 }
 
 float AnimationCurve::Evaluate(const float time) const

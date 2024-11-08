@@ -40,7 +40,7 @@ public:
 class AnimationCurve
 {
 public:
-	T_ENGINE_CORE_API AnimationCurve(const KeyFrame& firstFrame, AnimationCurveInterpolationMode mode = AnimationCurveInterpolationMode::Lerp);
+	T_ENGINE_CORE_API AnimationCurve(const float initValue, const float lastTime, const AnimationCurveInterpolationMode mode = AnimationCurveInterpolationMode::Lerp);
 	T_ENGINE_CORE_API ~AnimationCurve();
 
 	KeyFrame& operator[](const int index)
@@ -55,6 +55,7 @@ public:
 	int size() const { return _keys.size(); }
 
 	T_ENGINE_CORE_API void AddKey(const KeyFrame& keyFrame);
+	T_ENGINE_CORE_API void AddKey(const float time, const float value);
 	T_ENGINE_CORE_API float Evaluate(const float time) const;
 private:
 	void _sort_keyframes() { std::ranges::sort(_keys, {}, &KeyFrame::time); }

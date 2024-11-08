@@ -13,6 +13,7 @@
 #include "../tEngine_core/AnimatorController.h"
 #include "../tEngine_core/AnimationClip.h"
 #include "../tEngine_core/AnimationDiscrete.h"
+#include "../tEngine_core/AnimationEditor.h"
 #include "Player.h"
 #include "CameraFollower.h"
 #include <typeinfo>
@@ -167,40 +168,74 @@ void PlayScene::Init()
 		go->GetComponent<SpriteRenderer>()->set_sprite(chara1->GetSprite());
 		go->AddComponent<Animator>();
 
-		AnimationDiscrete* discrete = new AnimationDiscrete(typeid(tEngine::Sprite), chara1->GetSprite());
-		discrete->AddKey(0.5f, chara2->GetSprite());
-		discrete->AddKey(1, chara3->GetSprite());
-		discrete->AddKey(1.5f, chara1->GetSprite());
-		discrete->AddKey(2.0f, chara2->GetSprite());
-		discrete->AddKey(2.5f, chara3->GetSprite());
-		discrete->AddKey(3.0f, chara1->GetSprite());
-		AnimationProperty* p1 = new AnimationProperty();
-		void* ptr1 = go->GetComponent<SpriteRenderer>()->get_sprite_ref();
-		//p1->BindRef(ptr1);
-		//p1->BindRef(&SpriteRenderer::_sprite, go->GetComponent<SpriteRenderer>());
-		p1->BindRef(go->GetComponent<SpriteRenderer>()->get_sprite_ref());
+		AnimationClip* clip = new AnimationClip();
+		editor::AnimationEditor editor(clip);
+		editor.AddProperty("SpriteRenderer.sprite", go,
+			go->GetComponent<SpriteRenderer>()->get_sprite_ref(),
+			editor::AnimationEditor::AnimationPropertyType::Discrete, typeid(tEngine::Sprite),
+			chara1->GetSprite(), 0, -1);
+		editor.AddKeysDiscrete("SpriteRenderer.sprite",
+			{
+				chara2->GetSprite(),
+				chara3->GetSprite(),
+				chara2->GetSprite(),
+				chara1->GetSprite(),
+				chara2->GetSprite(),
+				chara3->GetSprite(),
+				chara2->GetSprite(),
+				chara1->GetSprite(),
+			},
+			{ 0.5f, 1.0f, 1.5f, 2.0f, 2.5f, 3.0f, 3.5f, 4.0f }
+		);
 
-		AnimationCurve* curve = new AnimationCurve(KeyFrame(0.0f, 100.0f), AnimationCurveInterpolationMode::Lerp);
+		//AnimationDiscrete* discrete = new AnimationDiscrete(typeid(tEngine::Sprite), chara1->GetSprite());
+		//discrete->AddKey(0.5f, chara2->GetSprite());
+		//discrete->AddKey(1, chara3->GetSprite());
+		//discrete->AddKey(1.5f, chara1->GetSprite());
+		//discrete->AddKey(2.0f, chara2->GetSprite());
+		//discrete->AddKey(2.5f, chara3->GetSprite());
+		//discrete->AddKey(3.0f, chara1->GetSprite());
+		//AnimationProperty* p1 = new AnimationProperty();
+		//void* ptr1 = go->GetComponent<SpriteRenderer>()->get_sprite_ref();
+		////p1->BindRef(ptr1);
+		////p1->BindRef(&SpriteRenderer::_sprite, go->GetComponent<SpriteRenderer>());
+		//p1->BindRef(go->GetComponent<SpriteRenderer>()->get_sprite_ref());
+
+		editor.AddProperty("Transform.x", go,
+			go->transform()->position_ref()->get_x_ref(),
+			editor::AnimationEditor::AnimationPropertyType::Curve, typeid(void), nullptr, 
+			100.0f, (int)AnimationCurveInterpolationMode::Lerp);
+		editor.AddKeysCurve("Transform.x",
+			{300, 500, 700, 900},
+			{1.0f, 2.0f, 3.0f, 4.0f}
+		);
+
+		/*AnimationCurve* curve = new AnimationCurve(KeyFrame(0.0f, 100.0f), AnimationCurveInterpolationMode::Lerp);
 		curve->AddKey(KeyFrame(1.5f, 300));
 		curve->AddKey(KeyFrame(3.0f, 500));
 		AnimationProperty* p2 = new AnimationProperty();
 		void* ptr = go->transform()->position_ref()->get_x_ref();
-		p2->BindRef(ptr);
+		p2->BindRef(ptr);*/
 
-		AnimationEvent evt(3.0f);
+		editor.AddEvent(3.0f,
+			[=]() {
+				OutputDebugStringW(L"Event Occured!");
+			});
+
+		/*AnimationEvent evt(3.0f);
 		evt.SetMethod([=]()
 			{ 
 				OutputDebugStringW(L"Event Occured!"); 
 			}
-		);
+		);*/
 
-		AnimationClip* clip = new AnimationClip();
+		/*AnimationClip* clip = new AnimationClip();
 		clip->SetCurve("TEMP", *p2, curve);
 		clip->SetDiscrete("TEMP", *p1, discrete);
-		clip->AddEvent(evt);
+		clip->AddEvent(evt);*/
 
 		AnimatorController* animController = new AnimatorController();
-		animController->set_clip(clip);
+		animController->set_clip(editor.GetClip());
 		auto anim = go->GetComponent<Animator>();
 		anim->set_animatorController(animController);
 
