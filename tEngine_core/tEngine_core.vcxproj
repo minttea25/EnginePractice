@@ -162,7 +162,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationClip.h" />
+    <ClInclude Include="AnimationCurve.h" />
+    <ClInclude Include="AnimationDiscrete.h" />
+    <ClInclude Include="AnimationEditor.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="AnimatorController.h" />
     <ClInclude Include="Behaviour.h" />
     <ClInclude Include="Bounds.h" />
     <ClInclude Include="Camera.h" />
@@ -175,6 +180,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="MonoBehaviour.h" />
+    <ClInclude Include="Motion.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Quaternion.h" />
@@ -203,7 +209,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimationClip.cpp" />
+    <ClCompile Include="AnimationCurve.cpp" />
+    <ClCompile Include="AnimationDiscrete.cpp" />
+    <ClCompile Include="AnimationEditor.cpp" />
     <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="AnimatorController.cpp" />
     <ClCompile Include="Behaviour.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -211,6 +222,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="MonoBehaviour.cpp" />
+    <ClCompile Include="Motion.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -23,6 +23,8 @@ constexpr auto UNSIGNED_INVALID = 0;
 #define IGNORED /*It means ignorable variable which is not used.*/
 #define DISCARD /*It means the return value is not used.*/
 
+#define UNSAFE /*It means this code is using reinterpret_cast about pointer.*/
+
 #define NAMESPACE_OPEN(name) namespace name { /*Start namespace*/
 #define NAMESPACE_CLOSE } /*End namespace*/
 

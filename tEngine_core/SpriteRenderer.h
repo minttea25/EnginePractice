@@ -25,7 +25,9 @@ public:
 
 	T_ENGINE_CORE_API void set_sprite(Sprite* sprite) { _sprite = sprite; }
 	T_ENGINE_CORE_API Sprite* sprite() { return _sprite; }
-private:
+
+	T_ENGINE_CORE_API void* get_sprite_ref() { return &_sprite; }
+public:
 	Sprite* _sprite;
 
 };
